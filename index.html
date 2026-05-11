@@ -1,0 +1,1104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b0b12" />
+
+  <title>Wedding Invitation</title>
+  <meta name="description" content="You're invited to our wedding celebration." />
+
+  <!-- Open Graph (WhatsApp / Social preview) -->
+  <meta property="og:title" content="Wedding Invitation" />
+  <meta property="og:description" content="Tap to open the invitation ✨" />
+  <meta property="og:type" content="website" />
+  <!-- Tip: Replace with your hosted image later -->
+  <meta property="og:image" content="assets/og-cover.jpg" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #0b0b12;
+      --bg2:#121225;
+      --card: rgba(255,255,255,.07);
+      --card2: rgba(255,255,255,.10);
+      --stroke: rgba(255,255,255,.14);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.70);
+
+      --accent: #f3c6ff; /* lavender */
+      --accent2:#b6f3ff; /* icy cyan */
+      --gold:#ffd67a;
+
+      --shadow: 0 20px 60px rgba(0,0,0,.35);
+      --radius: 22px;
+      --radius2: 28px;
+
+      --max: 1100px;
+    }
+
+    *{ box-sizing: border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1200px 900px at 15% 15%, rgba(243,198,255,.16), transparent 55%),
+        radial-gradient(1100px 900px at 85% 25%, rgba(182,243,255,.14), transparent 55%),
+        radial-gradient(1000px 900px at 50% 95%, rgba(255,214,122,.12), transparent 55%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      overflow-x:hidden;
+    }
+
+    a{ color: inherit; }
+    .container{
+      width: min(92vw, var(--max));
+      margin: 0 auto;
+    }
+
+    /* --- Decorative floating hearts --- */
+    .hearts{
+      position: fixed;
+      inset: 0;
+      pointer-events:none;
+      z-index: 0;
+      overflow:hidden;
+      opacity:.55;
+    }
+    .heart{
+      position:absolute;
+      width: 14px; height:14px;
+      transform: rotate(45deg);
+      background: linear-gradient(135deg, rgba(243,198,255,.7), rgba(182,243,255,.6));
+      border-radius: 4px;
+      filter: drop-shadow(0 8px 20px rgba(0,0,0,.25));
+      animation: floatUp linear infinite;
+    }
+    .heart:before, .heart:after{
+      content:"";
+      position:absolute;
+      width:14px; height:14px;
+      background: inherit;
+      border-radius: 50%;
+    }
+    .heart:before{ left:-7px; top:0; }
+    .heart:after{ left:0; top:-7px; }
+    @keyframes floatUp{
+      from{ transform: translateY(10vh) rotate(45deg); opacity:0; }
+      10%{ opacity:.9; }
+      to{ transform: translateY(-120vh) rotate(45deg); opacity:0; }
+    }
+
+    /* --- Cover overlay --- */
+    .cover{
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display:grid;
+      place-items:center;
+      padding: 22px;
+      background:
+        radial-gradient(900px 700px at 30% 20%, rgba(243,198,255,.18), transparent 60%),
+        radial-gradient(900px 700px at 70% 30%, rgba(182,243,255,.16), transparent 60%),
+        linear-gradient(180deg, rgba(10,10,18,.95), rgba(14,14,28,.95));
+      backdrop-filter: blur(10px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .cover.hidden{
+      opacity:0;
+      transform: scale(1.02);
+      pointer-events:none;
+    }
+    .cover-card{
+      width: min(95vw, 640px);
+      border-radius: var(--radius2);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+      border: 1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      padding: 28px 26px 24px;
+      position:relative;
+      overflow:hidden;
+    }
+    .cover-card:before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(500px 300px at 15% 10%, rgba(243,198,255,.24), transparent 60%),
+        radial-gradient(500px 300px at 85% 25%, rgba(182,243,255,.22), transparent 60%);
+      opacity:.9;
+      z-index:0;
+    }
+    .cover-inner{
+      position:relative;
+      z-index:1;
+      text-align:center;
+    }
+    .script{
+      font-family: "Great Vibes", cursive;
+      font-weight:400;
+      letter-spacing:.5px;
+    }
+    .kicker{
+      font-size: 13px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .names{
+      font-size: clamp(44px, 6.6vw, 74px);
+      margin: 10px 0 0;
+      line-height:1.0;
+    }
+    .sub{
+      margin: 10px 0 0;
+      font-size: 15px;
+      color: var(--muted);
+      line-height:1.6;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+      padding: 10px 14px;
+      margin-top: 16px;
+      color: rgba(255,255,255,.85);
+      font-size: 14px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      width: min(380px, 100%);
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.20);
+      background: linear-gradient(135deg, rgba(243,198,255,.20), rgba(182,243,255,.18));
+      color: var(--text);
+      cursor:pointer;
+      font-weight:600;
+      box-shadow: 0 12px 40px rgba(0,0,0,.22);
+      transition: transform .15s ease, filter .15s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); filter: brightness(1.08); }
+    .btn:active{ transform: translateY(0px) scale(.99); }
+    .tiny{
+      margin-top: 10px;
+      font-size: 12px;
+      color: rgba(255,255,255,.60);
+    }
+
+    /* --- Header / Nav --- */
+    header{
+      position: sticky;
+      top:0;
+      z-index: 20;
+      backdrop-filter: blur(10px);
+      background: rgba(10,10,18,.40);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 14px 0;
+      gap: 12px;
+    }
+    .brand{
+      display:flex;
+      flex-direction:column;
+      line-height:1.1;
+    }
+    .brand .script{ font-size: 26px; }
+    .brand small{ color: var(--muted); font-size: 12px; letter-spacing:.12em; text-transform:uppercase; }
+    .nav a{
+      text-decoration:none;
+      color: rgba(255,255,255,.82);
+      font-size: 14px;
+    }
+    .nav-links{
+      display:flex;
+      gap: 14px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .nav-links a{
+      padding: 8px 10px;
+      border-radius: 999px;
+      border:1px solid transparent;
+      transition: background .15s ease, border-color .15s ease;
+    }
+    .nav-links a:hover{
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.10);
+    }
+
+    /* --- Sections --- */
+    main{ position:relative; z-index: 1; }
+    section{
+      padding: 42px 0;
+    }
+    .hero{
+      padding: 54px 0 26px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+    @media (max-width: 900px){
+      .hero-grid{ grid-template-columns: 1fr; }
+    }
+    .card{
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .card.pad{ padding: 20px; }
+    .h1{
+      font-size: clamp(34px, 5vw, 48px);
+      margin: 0;
+      line-height:1.05;
+    }
+    .lead{
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.75;
+      margin: 10px 0 0;
+    }
+
+    .photo{
+      min-height: 280px;
+      background:
+        radial-gradient(700px 320px at 25% 20%, rgba(243,198,255,.20), transparent 60%),
+        radial-gradient(700px 320px at 75% 30%, rgba(182,243,255,.18), transparent 60%),
+        linear-gradient(135deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+      position:relative;
+    }
+    .photo:after{
+      content:"Add your couple photo here → assets/couple.jpg";
+      position:absolute;
+      inset:auto 16px 16px 16px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(0,0,0,.30);
+      border: 1px dashed rgba(255,255,255,.22);
+      color: rgba(255,255,255,.75);
+      font-size: 13px;
+      text-align:center;
+    }
+    .photo.has-img{
+      background-size: cover !important;
+      background-position: center !important;
+    }
+    .photo.has-img:after{ display:none; }
+
+    .meta-row{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+    @media (max-width: 700px){
+      .meta-row{ grid-template-columns: 1fr; }
+    }
+    .meta{
+      padding: 14px 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+    }
+    .meta b{
+      display:block;
+      font-size: 12px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color: rgba(255,255,255,.70);
+    }
+    .meta span{
+      display:block;
+      margin-top: 8px;
+      font-size: 15px;
+      color: rgba(255,255,255,.92);
+    }
+
+    /* Countdown */
+    .countdown{
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      margin-top: 16px;
+    }
+    .unit{
+      flex: 1 1 110px;
+      min-width: 110px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      padding: 12px 12px;
+      text-align:center;
+    }
+    .unit .num{
+      font-size: 28px;
+      font-weight:700;
+      letter-spacing: .02em;
+    }
+    .unit .lbl{
+      margin-top: 6px;
+      font-size: 12px;
+      color: rgba(255,255,255,.70);
+      letter-spacing:.14em;
+      text-transform:uppercase;
+    }
+
+    /* Titles */
+    .section-title{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+    .section-title h2{
+      margin:0;
+      font-size: 22px;
+      letter-spacing:.02em;
+    }
+    .section-title p{
+      margin:0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* Schedule cards */
+    .grid3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 900px){
+      .grid3{ grid-template-columns: 1fr; }
+    }
+    .event{
+      padding: 16px;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      font-size: 12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color: rgba(255,255,255,.80);
+    }
+    .event h3{
+      margin: 12px 0 6px;
+      font-size: 18px;
+    }
+    .event p{
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* Gallery */
+    .gallery{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 10px;
+    }
+    .g{
+      grid-column: span 4;
+      min-height: 150px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      overflow:hidden;
+      position:relative;
+      cursor:pointer;
+    }
+    .g:after{
+      content:"Add photo → assets/gallery/1.jpg";
+      position:absolute;
+      inset:auto 12px 12px 12px;
+      background: rgba(0,0,0,.30);
+      border: 1px dashed rgba(255,255,255,.22);
+      padding: 8px 10px;
+      border-radius: 14px;
+      font-size: 12px;
+      color: rgba(255,255,255,.75);
+      text-align:center;
+    }
+    .g.has-img{
+      background-size: cover !important;
+      background-position: center !important;
+    }
+    .g.has-img:after{ display:none; }
+    @media (max-width: 900px){
+      .g{ grid-column: span 6; }
+    }
+    @media (max-width: 540px){
+      .g{ grid-column: span 12; }
+    }
+
+    /* Map */
+    .map-wrap{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      align-items:stretch;
+    }
+    @media (max-width: 900px){
+      .map-wrap{ grid-template-columns: 1fr; }
+    }
+    iframe{
+      width:100%;
+      border:0;
+      border-radius: 18px;
+      min-height: 280px;
+      background: rgba(255,255,255,.05);
+    }
+
+    /* RSVP */
+    form{
+      display:grid;
+      gap: 10px;
+    }
+    input, select, textarea{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.20);
+      color: var(--text);
+      outline:none;
+      font-size: 14px;
+    }
+    textarea{ min-height: 110px; resize: vertical; }
+    .row2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    @media (max-width: 700px){
+      .row2{ grid-template-columns: 1fr; }
+    }
+    .submit{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 13px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.20);
+      background: linear-gradient(135deg, rgba(255,214,122,.22), rgba(243,198,255,.18));
+      color: var(--text);
+      font-weight:700;
+      cursor:pointer;
+      transition: transform .15s ease, filter .15s ease;
+    }
+    .submit:hover{ transform: translateY(-1px); filter: brightness(1.05); }
+
+    /* Music toggle floating button */
+    .music{
+      position: fixed;
+      right: 14px;
+      bottom: 14px;
+      z-index: 30;
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.35);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 16px 50px rgba(0,0,0,.25);
+      cursor:pointer;
+      user-select:none;
+    }
+    .dot{
+      width:10px;height:10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.35);
+    }
+    .music.on .dot{
+      background: var(--gold);
+      box-shadow: 0 0 0 6px rgba(255,214,122,.12);
+    }
+    .music span{
+      font-size: 13px;
+      color: rgba(255,255,255,.85);
+      letter-spacing:.02em;
+    }
+
+    /* Scroll reveal */
+    .reveal{
+      opacity:0;
+      transform: translateY(10px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+    .reveal.show{
+      opacity:1;
+      transform: translateY(0);
+    }
+
+    /* Footer */
+    footer{
+      padding: 30px 0 50px;
+      color: rgba(255,255,255,.65);
+      text-align:center;
+      font-size: 13px;
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      .heart{ animation: none !important; }
+      .reveal{ transition:none !important; }
+      .cover{ transition:none !important; }
+      .btn{ transition:none !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="hearts" aria-hidden="true" id="hearts"></div>
+
+  <!-- Cover / Gate -->
+  <div class="cover" id="cover" role="dialog" aria-modal="true" aria-label="Invitation cover">
+    <div class="cover-card">
+      <div class="cover-inner">
+        <div class="kicker">You are invited</div>
+        <h1 class="names script" id="coverNames">Nada <span style="color:var(--gold)">&amp;</span> Ahmed</h1>
+        <p class="sub" id="coverTo">Tap below to open the invitation</p>
+
+        <div class="pill" id="coverDatePill">Saturday • 20 September 2026 • 6:00 PM</div>
+        <button class="btn" id="openBtn" type="button">✨ Open Invitation</button>
+
+        <div class="tiny">Tip: Share link like <b>?to=Sara</b> for a personalized greeting.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Music (will start only after user interaction) -->
+  <audio id="bgm" preload="auto" loop>
+    <!-- Replace with your own file: assets/music.mp3 -->
+    <source src="assets/music.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Sticky header -->
+  <header>
+    <div class="container">
+      <div class="nav">
+        <div class="brand">
+          <div class="script" id="brandNames">Nada & Ahmed</div>
+          <small id="brandDate">20 Sep 2026</small>
+        </div>
+        <nav class="nav-links" aria-label="Sections">
+          <a href="#details">Details</a>
+          <a href="#schedule">Schedule</a>
+          <a href="#location">Location</a>
+          <a href="#gallery">Gallery</a>
+          <a href="#rsvp">RSVP</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="card pad reveal">
+            <h2 class="h1 script" id="heroTitle">We’re getting married</h2>
+            <p class="lead" id="heroLead">
+              With joyful hearts, we invite you to celebrate our wedding day.
+              Your presence will make our day even more special.
+            </p>
+
+            <div class="meta-row">
+              <div class="meta">
+                <b>Date</b>
+                <span id="metaDate">Saturday, 20 September 2026</span>
+              </div>
+              <div class="meta">
+                <b>Time</b>
+                <span id="metaTime">6:00 PM</span>
+              </div>
+              <div class="meta">
+                <b>Venue</b>
+                <span id="metaVenue">The Grand Hall, City</span>
+              </div>
+            </div>
+
+            <div class="countdown" aria-label="Countdown timer">
+              <div class="unit"><div class="num" id="cdDays">--</div><div class="lbl">Days</div></div>
+              <div class="unit"><div class="num" id="cdHours">--</div><div class="lbl">Hours</div></div>
+              <div class="unit"><div class="num" id="cdMins">--</div><div class="lbl">Minutes</div></div>
+              <div class="unit"><div class="num" id="cdSecs">--</div><div class="lbl">Seconds</div></div>
+            </div>
+          </div>
+
+          <div class="card photo reveal" id="couplePhoto" aria-label="Couple photo placeholder"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DETAILS -->
+    <section id="details">
+      <div class="container">
+        <div class="section-title reveal">
+          <div>
+            <h2>Invitation</h2>
+            <p>A warm note from the couple</p>
+          </div>
+        </div>
+        <div class="card pad reveal">
+          <p class="lead" id="inviteText">
+            We would be honored to have you join us as we begin this new chapter together.
+            Please come and celebrate love, laughter, and a lifetime of happiness.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCHEDULE -->
+    <section id="schedule">
+      <div class="container">
+        <div class="section-title reveal">
+          <div>
+            <h2>Schedule</h2>
+            <p>Plan your day with us</p>
+          </div>
+        </div>
+
+        <div class="grid3">
+          <div class="card event reveal">
+            <div class="badge">💍 Ceremony</div>
+            <h3 id="ev1Title">Wedding Ceremony</h3>
+            <p id="ev1Info">6:00 PM • The Grand Hall</p>
+          </div>
+          <div class="card event reveal">
+            <div class="badge">🥂 Reception</div>
+            <h3 id="ev2Title">Reception</h3>
+            <p id="ev2Info">8:00 PM • Dinner & Celebration</p>
+          </div>
+          <div class="card event reveal">
+            <div class="badge">🎉 Party</div>
+            <h3 id="ev3Title">After Party</h3>
+            <p id="ev3Info">10:30 PM • Music & Dance</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOCATION -->
+    <section id="location">
+      <div class="container">
+        <div class="section-title reveal">
+          <div>
+            <h2>Location</h2>
+            <p>Tap to navigate</p>
+          </div>
+        </div>
+
+        <div class="map-wrap">
+          <div class="card pad reveal">
+            <h3 style="margin:0 0 8px;">Venue</h3>
+            <p class="lead" id="addrText" style="margin:0 0 14px;">
+              The Grand Hall<br/>123 Wedding Street, City, Country
+            </p>
+
+            <a class="btn" style="text-decoration:none;" id="mapsBtn" href="#" target="_blank" rel="noreferrer">
+              📍 Open in Google Maps
+            </a>
+
+            <p class="tiny" style="margin-top:12px;">
+              Tip: Replace the map iframe URL with your venue embed link.
+            </p>
+          </div>
+
+          <div class="card pad reveal">
+            <!-- Replace src with your Google Maps embed -->
+            <iframe
+              id="mapFrame"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=London&output=embed"
+              title="Google map">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="gallery">
+      <div class="container">
+        <div class="section-title reveal">
+          <div>
+            <h2>Gallery</h2>
+            <p>Memories & moments</p>
+          </div>
+        </div>
+
+        <div class="gallery">
+          <div class="g reveal" data-img="assets/gallery/1.jpg" aria-label="Gallery image 1"></div>
+          <div class="g reveal" data-img="assets/gallery/2.jpg" aria-label="Gallery image 2"></div>
+          <div class="g reveal" data-img="assets/gallery/3.jpg" aria-label="Gallery image 3"></div>
+          <div class="g reveal" data-img="assets/gallery/4.jpg" aria-label="Gallery image 4"></div>
+          <div class="g reveal" data-img="assets/gallery/5.jpg" aria-label="Gallery image 5"></div>
+          <div class="g reveal" data-img="assets/gallery/6.jpg" aria-label="Gallery image 6"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RSVP -->
+    <section id="rsvp">
+      <div class="container">
+        <div class="section-title reveal">
+          <div>
+            <h2>RSVP</h2>
+            <p>Let us know if you can make it</p>
+          </div>
+        </div>
+
+        <div class="card pad reveal">
+          <p class="lead" style="margin-top:0">
+            This page is static (GitHub Pages), so the form below opens WhatsApp by default.
+            You can also swap it to a Google Form or any RSVP service.
+          </p>
+
+          <form id="rsvpForm">
+            <div class="row2">
+              <input id="rsvpName" required placeholder="Your name" />
+              <select id="rsvpAttend" required>
+                <option value="" selected disabled>Will you attend?</option>
+                <option value="Yes">Yes, with pleasure</option>
+                <option value="No">Sorry, can’t make it</option>
+              </select>
+            </div>
+
+            <div class="row2">
+              <input id="rsvpGuests" type="number" min="0" max="10" placeholder="Number of guests (e.g., 2)" />
+              <input id="rsvpPhone" placeholder="Phone (optional)" />
+            </div>
+
+            <textarea id="rsvpMsg" placeholder="Message (optional)"></textarea>
+
+            <button class="submit" type="submit">💌 Send RSVP</button>
+          </form>
+
+          <p class="tiny">
+            To collect responses automatically, use Google Forms (recommended) and replace the RSVP action link.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      Made with ❤️ • See you on our special day
+    </footer>
+  </main>
+
+  <!-- Music toggle -->
+  <div class="music" id="musicBtn" role="button" tabindex="0" aria-label="Toggle music">
+    <div class="dot" aria-hidden="true"></div>
+    <span id="musicLabel">Music: Off</span>
+  </div>
+
+  <!-- Lightbox -->
+  <div id="lightbox" style="
+    position:fixed; inset:0; z-index:60;
+    display:none; place-items:center;
+    background: rgba(0,0,0,.70);
+    backdrop-filter: blur(10px);
+    padding: 18px;">
+    <img id="lightImg" alt="Gallery preview" style="
+      width: min(92vw, 980px);
+      max-height: 86vh;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: 0 30px 90px rgba(0,0,0,.45);
+      object-fit: cover;" />
+  </div>
+
+  <script>
+    // ==========================
+    // 1) EDIT THESE SETTINGS
+    // ==========================
+    const CONFIG = {
+      names: "Nada & Ahmed",
+      dateTextLong: "Saturday, 20 September 2026",
+      dateTextShort: "20 Sep 2026",
+      timeText: "6:00 PM",
+      venueText: "The Grand Hall, City",
+      addressHtml: "The Grand Hall<br/>123 Wedding Street, City, Country",
+      // Countdown target in local time:
+      weddingDateISO: "2026-09-20T18:00:00",
+      // Couple photo (optional). Put file in assets/couple.jpg
+      couplePhotoUrl: "assets/couple.jpg",
+      // Maps link (replace with your venue link):
+      mapsUrl: "https://www.google.com/maps?q=The+Grand+Hall",
+      // WhatsApp RSVP (replace number with yours, include country code, no + sign):
+      whatsappNumber: "201000000000"
+    };
+
+    // ==========================
+    // 2) HELPERS
+    // ==========================
+    const $ = (id) => document.getElementById(id);
+    const pad2 = (n) => String(n).padStart(2, "0");
+
+    // Personalize greeting via ?to=Name
+    function getGuestName(){
+      const p = new URLSearchParams(location.search);
+      const to = p.get("to") || p.get("guest") || "";
+      // Basic sanitize:
+      return to.replace(/[<>]/g, "").trim();
+    }
+
+    // ==========================
+    // 3) APPLY CONFIG TO UI
+    // ==========================
+    function applyConfig(){
+      $("coverNames").textContent = CONFIG.names;
+      $("brandNames").textContent = CONFIG.names;
+      $("brandDate").textContent = CONFIG.dateTextShort;
+
+      $("metaDate").textContent = CONFIG.dateTextLong;
+      $("metaTime").textContent = CONFIG.timeText;
+      $("metaVenue").textContent = CONFIG.venueText;
+
+      $("coverDatePill").textContent = `${CONFIG.dateTextLong} • ${CONFIG.timeText}`;
+
+      $("addrText").innerHTML = CONFIG.addressHtml;
+      $("mapsBtn").href = CONFIG.mapsUrl;
+
+      // Photo
+      const photo = $("couplePhoto");
+      // If image exists, show it (won't error if missing; will just be a blank background)
+      photo.style.backgroundImage = `
+        radial-gradient(700px 320px at 25% 20%, rgba(243,198,255,.20), transparent 60%),
+        radial-gradient(700px 320px at 75% 30%, rgba(182,243,255,.18), transparent 60%),
+        url("${CONFIG.couplePhotoUrl}")
+      `;
+      photo.classList.add("has-img");
+    }
+
+    // ==========================
+    // 4) HEARTS BACKGROUND
+    // ==========================
+    function spawnHearts(){
+      const host = $("hearts");
+      const count = 18;
+      for(let i=0;i<count;i++){
+        const h = document.createElement("div");
+        h.className = "heart";
+        const left = Math.random() * 100;
+        const size = 10 + Math.random()*18;
+        const dur = 6 + Math.random()*10;
+        const delay = Math.random() * 6;
+
+        h.style.left = left + "vw";
+        h.style.bottom = (-10 - Math.random()*40) + "vh";
+        h.style.width = size + "px";
+        h.style.height = size + "px";
+        h.style.animationDuration = dur + "s";
+        h.style.animationDelay = delay + "s";
+        h.style.opacity = (0.25 + Math.random()*0.6).toFixed(2);
+
+        host.appendChild(h);
+      }
+    }
+
+    // ==========================
+    // 5) COUNTDOWN
+    // ==========================
+    function startCountdown(){
+      const target = new Date(CONFIG.weddingDateISO).getTime();
+      const tick = () => {
+        const now = Date.now();
+        const diff = Math.max(0, target - now);
+
+        const s = Math.floor(diff / 1000);
+        const days = Math.floor(s / (3600*24));
+        const hours = Math.floor((s % (3600*24)) / 3600);
+        const mins = Math.floor((s % 3600) / 60);
+        const secs = s % 60;
+
+        $("cdDays").textContent = pad2(days);
+        $("cdHours").textContent = pad2(hours);
+        $("cdMins").textContent = pad2(mins);
+        $("cdSecs").textContent = pad2(secs);
+      };
+
+      tick();
+      setInterval(tick, 1000);
+    }
+
+    // ==========================
+    // 6) REVEAL ON SCROLL
+    // ==========================
+    function setupReveal(){
+      const els = document.querySelectorAll(".reveal");
+      const io = new IntersectionObserver((entries)=>{
+        for(const e of entries){
+          if(e.isIntersecting){
+            e.target.classList.add("show");
+            io.unobserve(e.target);
+          }
+        }
+      }, { threshold: 0.12 });
+
+      els.forEach(el => io.observe(el));
+    }
+
+    // ==========================
+    // 7) MUSIC CONTROL
+    //    Browsers often block autoplay audio unless user interacts first.
+    // ==========================
+    let musicOn = false;
+    async function setMusic(on){
+      const a = $("bgm");
+      const btn = $("musicBtn");
+      const lbl = $("musicLabel");
+
+      try{
+        if(on){
+          await a.play();
+          musicOn = true;
+          btn.classList.add("on");
+          lbl.textContent = "Music: On";
+        }else{
+          a.pause();
+          musicOn = false;
+          btn.classList.remove("on");
+          lbl.textContent = "Music: Off";
+        }
+      }catch(err){
+        // If blocked, keep off.
+        musicOn = false;
+        btn.classList.remove("on");
+        lbl.textContent = "Music: Off";
+      }
+    }
+
+    function setupMusic(){
+      const btn = $("musicBtn");
+      btn.addEventListener("click", () => setMusic(!musicOn));
+      btn.addEventListener("keydown", (e)=>{
+        if(e.key === "Enter" || e.key === " "){
+          e.preventDefault();
+          setMusic(!musicOn);
+        }
+      });
+    }
+
+    // ==========================
+    // 8) OPEN COVER
+    // ==========================
+    function setupCover(){
+      const guest = getGuestName();
+      if(guest){
+        $("coverTo").textContent = `Dear ${guest}, you’re warmly invited 💛`;
+        $("heroLead").textContent =
+          `Dear ${guest}, we’d love to celebrate with you. Your presence will make our day even more special.`;
+      }
+
+      $("openBtn").addEventListener("click", async () => {
+        $("cover").classList.add("hidden");
+        // Start music after the click (user gesture) — improves autoplay success.
+        await setMusic(true);
+        // Smooth scroll to top
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    }
+
+    // ==========================
+    // 9) GALLERY LIGHTBOX + PREVIEW
+    // ==========================
+    function setupGallery(){
+      const items = document.querySelectorAll(".g");
+      items.forEach((el)=>{
+        const img = el.getAttribute("data-img");
+        if(img){
+          // Set background preview (if file exists it will show; else remains placeholder)
+          el.style.backgroundImage = `url("${img}")`;
+          el.classList.add("has-img");
+        }
+        el.addEventListener("click", ()=>{
+          $("lightImg").src = img;
+          $("lightbox").style.display = "grid";
+        });
+      });
+
+      $("lightbox").addEventListener("click", ()=>{
+        $("lightbox").style.display = "none";
+        $("lightImg").src = "";
+      });
+    }
+
+    // ==========================
+    // 10) RSVP (WhatsApp message)
+    // ==========================
+    function setupRSVP(){
+      $("rsvpForm").addEventListener("submit", (e)=>{
+        e.preventDefault();
+
+        const name = $("rsvpName").value.trim();
+        const attend = $("rsvpAttend").value;
+        const guests = $("rsvpGuests").value.trim();
+        const phone = $("rsvpPhone").value.trim();
+        const msg = $("rsvpMsg").value.trim();
+
+        const lines = [
+          `RSVP for: ${CONFIG.names}`,
+          `Name: ${name}`,
+          `Attending: ${attend}`,
+          guests ? `Guests: ${guests}` : null,
+          phone ? `Phone: ${phone}` : null,
+          msg ? `Message: ${msg}` : null
+        ].filter(Boolean);
+
+        const text = encodeURIComponent(lines.join("\n"));
+        const url = `https://wa.me/${CONFIG.whatsappNumber}?text=${text}`;
+        window.open(url, "_blank", "noopener,noreferrer");
+      });
+    }
+
+    // ==========================
+    // INIT
+    // ==========================
+    applyConfig();
+    spawnHearts();
+    startCountdown();
+    setupReveal();
+    setupMusic();
+    setupCover();
+    setupGallery();
+    setupRSVP();
+  </script>
+</body>
+</html>
+``
