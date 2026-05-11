@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Wedding Invitation</title>
 
-  <!-- Optional fonts (not images). You can remove if you want pure system fonts. -->
+  <!-- Optional fonts (not images). Remove if you want pure system fonts. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -21,8 +21,6 @@
       --gold-2:#d4c19a;
 
       --shadow: 0 18px 60px rgba(0,0,0,.12);
-      --thin: rgba(183,154,98,.38);
-
       --radius: 22px;
       --max: 980px;
 
@@ -33,19 +31,16 @@
 
       /* Wax seal */
       --wax: #f2eadc;
-      --wax-edge: rgba(0,0,0,.12);
-      --wax-emboss: rgba(183,154,98,.55);
     }
 
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
+
     body{
       margin:0;
       color: var(--ink);
       background:
-        /* subtle vignette */
         radial-gradient(1200px 800px at 50% 35%, rgba(0,0,0,.05), transparent 55%),
-        /* paper warmth */
         linear-gradient(180deg, var(--paper), var(--paper-2));
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       overflow-x:hidden;
@@ -81,15 +76,22 @@
       padding: 20px;
     }
 
-    /* ==============
+    /* =================
        MAIN INVITE UI
-       ============== */
+       ================= */
     .frame{
       width: min(94vw, var(--max));
       min-height: min(86vh, 720px);
       position:relative;
-      background: rgba(255,255,255,.18);
-      border: 1px solid rgba(183,154,98,.35);
+
+      /* More "paper card" look */
+      background:
+        radial-gradient(900px 500px at 50% 30%, rgba(255,255,255,.30), rgba(255,255,255,.14)),
+        rgba(255,255,255,.10);
+
+      /* thinner outer border */
+      border: 0.75px solid rgba(183,154,98,.28);
+
       box-shadow: var(--shadow);
       border-radius: 14px;
       padding: 26px;
@@ -98,28 +100,28 @@
       place-items:center;
     }
 
-    /* inner border line like screenshot */
+    /* inner border line (thinner + nicer offset) */
     .frame:before{
       content:"";
       position:absolute;
-      inset: 10px;
-      border: 1px solid rgba(183,154,98,.22);
+      inset: 12px;
+      border: 0.75px solid rgba(183,154,98,.18);
       border-radius: 12px;
       pointer-events:none;
     }
 
-    /* corner ornaments (simple L shapes) */
+    /* corner ornaments (thinner) */
     .corner{
       position:absolute;
-      width: 32px; height: 32px;
-      border-color: rgba(183,154,98,.7);
+      width: 30px; height: 30px;
+      border-color: rgba(183,154,98,.55);
       border-style: solid;
       pointer-events:none;
     }
-    .tl{ top:12px; left:12px; border-width:2px 0 0 2px; }
-    .tr{ top:12px; right:12px; border-width:2px 2px 0 0; }
-    .bl{ bottom:12px; left:12px; border-width:0 0 2px 2px; }
-    .br{ bottom:12px; right:12px; border-width:0 2px 2px 0; }
+    .tl{ top:14px; left:14px; border-width:1px 0 0 1px; }
+    .tr{ top:14px; right:14px; border-width:1px 1px 0 0; }
+    .bl{ bottom:14px; left:14px; border-width:0 0 1px 1px; }
+    .br{ bottom:14px; right:14px; border-width:0 1px 1px 0; }
 
     /* close button like screenshot */
     .close{
@@ -130,7 +132,7 @@
       letter-spacing: .16em;
       text-transform: uppercase;
       color: rgba(42,36,31,.58);
-      border: 1px solid rgba(183,154,98,.35);
+      border: 0.75px solid rgba(183,154,98,.35);
       background: rgba(255,255,255,.25);
       padding: 8px 10px;
       cursor:pointer;
@@ -146,14 +148,23 @@
       max-width: 640px;
     }
 
+    /* Names: closer to reference "printed gold" feel */
     .names{
       font-family: "Great Vibes", cursive;
       font-weight: 400;
       color: var(--gold);
-      font-size: clamp(44px, 7vw, 76px);
+
+      font-size: clamp(42px, 6.6vw, 72px);
       margin: 0;
       line-height: 1.02;
-      letter-spacing: .5px;
+      letter-spacing: .3px;
+
+      text-shadow:
+        0 1px 0 rgba(255,255,255,.35),
+        0 0.6px 0 rgba(0,0,0,.06);
+
+      -webkit-font-smoothing: antialiased;
+      text-rendering: geometricPrecision;
     }
 
     .smallcaps{
@@ -225,24 +236,48 @@
       flex-wrap:wrap;
     }
 
+    /* Premium buttons */
     .btn{
       appearance:none;
       border: 1px solid rgba(183,154,98,.45);
-      background: rgba(255,255,255,.25);
+
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,.22));
+
       color: rgba(42,36,31,.78);
-      padding: 10px 14px;
-      border-radius: 12px;
+      padding: 10px 16px;
+      border-radius: 14px;
+
       font-size: 12px;
-      letter-spacing: .12em;
+      letter-spacing: .14em;
       text-transform: uppercase;
+
       cursor:pointer;
       display:inline-flex;
       align-items:center;
       gap: 8px;
-      transition: transform .12s ease, background .12s ease;
       text-decoration:none;
+
+      box-shadow:
+        0 10px 18px rgba(0,0,0,.08),
+        inset 0 1px 0 rgba(255,255,255,.55);
+
+      transition: transform .14s ease, background .14s ease, box-shadow .14s ease;
     }
-    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.35); }
+    .btn:hover{
+      transform: translateY(-1px);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.70), rgba(255,255,255,.28));
+      box-shadow:
+        0 14px 22px rgba(0,0,0,.10),
+        inset 0 1px 0 rgba(255,255,255,.60);
+    }
+    .btn:active{
+      transform: translateY(0px);
+      box-shadow:
+        0 8px 14px rgba(0,0,0,.08),
+        inset 0 2px 6px rgba(0,0,0,.08);
+    }
 
     /* floating small round action button (bottom-right) */
     .float{
@@ -265,9 +300,9 @@
       transform: translateX(1px);
     }
 
-    /* ==============
+    /* =================
        COVER (Envelope)
-       ============== */
+       ================= */
     .cover{
       position:fixed;
       inset:0;
@@ -305,12 +340,10 @@
 
       /* Embossed floral-ish texture using only CSS gradients */
       background:
-        /* subtle emboss highlights */
         radial-gradient(12px 10px at 20% 22%, rgba(255,255,255,.18), transparent 60%),
         radial-gradient(14px 12px at 65% 30%, rgba(255,255,255,.16), transparent 60%),
         radial-gradient(16px 14px at 35% 70%, rgba(255,255,255,.14), transparent 60%),
 
-        /* scattered “flowers” */
         radial-gradient(circle at 16% 18%, rgba(0,0,0,.12) 0 2px, transparent 3px),
         radial-gradient(circle at 18% 18%, rgba(0,0,0,.08) 0 7px, transparent 8px),
         radial-gradient(circle at 62% 22%, rgba(0,0,0,.11) 0 2px, transparent 3px),
@@ -318,11 +351,10 @@
         radial-gradient(circle at 30% 62%, rgba(0,0,0,.10) 0 2px, transparent 3px),
         radial-gradient(circle at 32% 62%, rgba(0,0,0,.07) 0 8px, transparent 9px),
 
-        /* base */
         linear-gradient(180deg, var(--env-3), var(--env));
     }
 
-    /* diagonal flap lines like your envelope image */
+    /* diagonal flap lines */
     .envelope:before,
     .envelope:after{
       content:"";
@@ -336,15 +368,18 @@
       pointer-events:none;
     }
 
-    /* flap top (animated open) */
+    /* flap top (animated open) - SLOWER + perspective */
     .flap{
       position:absolute;
       top:0; left:0; right:0;
       height: 55%;
       transform-origin: top center;
-      transform: rotateX(0deg);
-      transition: transform .9s cubic-bezier(.2,.8,.2,1);
-      filter: drop-shadow(0 10px 18px rgba(0,0,0,.18));
+      transform: perspective(900px) rotateX(0deg);
+
+      /* slower + elegant easing */
+      transition: transform 1.55s cubic-bezier(.16,.84,.22,1);
+
+      filter: drop-shadow(0 12px 22px rgba(0,0,0,.18));
     }
     .flap:before{
       content:"";
@@ -361,7 +396,7 @@
     .seal{
       position:absolute;
       left:50%;
-      top: 52%;
+      top: 54%;
       transform: translate(-50%,-50%);
       width: 88px;
       height: 88px;
@@ -387,7 +422,7 @@
       transform: translateY(1px);
     }
 
-    /* “Welcome to our special day” text area */
+    /* “Welcome...” text */
     .welcome{
       position:absolute;
       left:50%;
@@ -420,8 +455,22 @@
     }
 
     /* open animation state */
-    .open .flap{ transform: rotateX(155deg); }
-    .open .seal{ transform: translate(-50%,-50%) scale(.98); }
+    .open .flap{
+      transform: perspective(900px) rotateX(162deg);
+    }
+    .open .seal{
+      transform: translate(-50%,-50%) scale(.98);
+    }
+
+    /* Mobile tuning for seal centering */
+    @media (max-width: 420px){
+      .seal{
+        top: 56%;
+        width: 82px;
+        height: 82px;
+      }
+      .seal span{ font-size: 32px; }
+    }
 
     /* Accessibility: reduce motion */
     @media (prefers-reduced-motion: reduce){
@@ -456,7 +505,7 @@
       <div class="close" id="closeBtn">× Close</div>
 
       <div class="content">
-        <h1 class="names" id="names">Nada & Ahmed</h1>
+        <h1 class="names" id="names">Nada &amp; Ahmed</h1>
         <div class="smallcaps" id="families">TOGETHER WITH THEIR FAMILIES</div>
 
         <div class="invite-line" id="inviteLine">invite you to celebrate their wedding</div>
@@ -488,29 +537,27 @@
     // ==========================
     const CONFIG = {
       names: "Nada & Ahmed",
-      monogram: "N&A", // shown on wax seal
+      monogram: "N&A",
       familiesLine: "TOGETHER WITH THEIR FAMILIES",
       inviteLine: "invite you to celebrate their wedding",
 
-      // These lines match the elegant “wordy” style in your screenshot
       dateLine: "Saturday, the Fourteenth of June",
       yearLine: "2025",
       timeLine: "at Six O’Clock in the Evening",
       venueLine: "The Grand Hall • City",
 
-      rsvpLink: "https://wa.me/201000000000?text=RSVP%20Yes", // change number + message
+      rsvpLink: "https://wa.me/201000000000?text=RSVP%20Yes",
       locationLink: "https://www.google.com/maps?q=The+Grand+Hall",
 
       welcomeText: "Welcome to<br>our special day"
     };
 
-    // Personalize using ?to=Name
+    // Personalize using ?to=Name (example: ?to=Sara)
     function guestName(){
       const p = new URLSearchParams(location.search);
       return (p.get("to") || "").replace(/[<>]/g,"").trim();
     }
 
-    // Apply config to UI
     function apply(){
       document.getElementById("names").textContent = CONFIG.names;
       document.getElementById("sealMonogram").textContent = CONFIG.monogram;
@@ -528,11 +575,11 @@
 
       const g = guestName();
       if(g){
-        document.getElementById("exclusive").textContent = `THIS INVITATION IS EXCLUSIVELY FOR ${g.toUpperCase()}`;
+        document.getElementById("exclusive").textContent =
+          `THIS INVITATION IS EXCLUSIVELY FOR ${g.toUpperCase()}`;
       }
     }
 
-    // Cover open/close behavior
     const cover = document.getElementById("cover");
     const envelope = document.getElementById("envelope");
     const openInvite = document.getElementById("openInvite");
@@ -541,13 +588,12 @@
 
     function open(){
       envelope.classList.add("open");
-      // delay hiding cover to let flap animate
-      setTimeout(() => cover.classList.add("hide"), 520);
+      // increased delay to match slower flap animation
+      setTimeout(() => cover.classList.add("hide"), 1050);
     }
 
     function close(){
       cover.classList.remove("hide");
-      // reset animation state
       setTimeout(() => envelope.classList.remove("open"), 50);
     }
 
